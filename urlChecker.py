@@ -3,18 +3,18 @@ import requests
 import base64
 import json
 
-API_KEY = "YOUR_API_KEY"
+API_KEY = "YOUR_API_KEY" # Remplacez par votre clé API VirusTotal
 
 headers = {"accept": "application/json",
            "x-apikey": API_KEY}
 
 
-def check_url(urlToCheck):
+def checkUrl(urlToCheck):
     try:
-        data = json.loads(urlToCheck)
-        if "url" not in data:
+        input_data = json.loads(urlToCheck)
+        if "url" not in input_data:
             return "Invalid input format. Please provide a JSON object with a 'url' key."
-        urlToCheck = data["url"]
+        urlToCheck = input_data["url"]
 
         url_id = base64.urlsafe_b64encode(urlToCheck.encode()).decode().strip("=")
         url = f"https://www.virustotal.com/api/v3/urls/{url_id}"
@@ -32,14 +32,14 @@ def check_url(urlToCheck):
 
     return result
 
-def on_button_click():
+def onButtonClick():
     user_input = textBox.get("1.0", tk.END).strip()
     if not user_input:
         textBox.delete("1.0", tk.END)
         textBox.insert(tk.END, "Please enter a JSON input.")
-        return
+        return 
     
-    result = check_url(user_input)
+    result = checkUrl(user_input)
     textBox.delete("1.0", tk.END)
     textBox.insert(tk.END, result)
 
@@ -58,7 +58,7 @@ def main():
     textBox.pack(pady=10, padx=10, fill=tk.BOTH, expand=True)
     textBox.insert(tk.END, '{"url": "http://example.com"}')
 
-    button = tk.Button(root, text="Check URL", command=on_button_click)
+    button = tk.Button(root, text="Check URL", command=onButtonClick)
     button.pack(pady=10)
 
     root.mainloop()
