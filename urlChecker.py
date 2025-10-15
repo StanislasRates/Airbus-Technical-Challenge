@@ -3,7 +3,7 @@ import requests
 import base64
 import json
 
-API_KEY = "256e225a041c540174f4615e072d903c717bdc45a30ee26a82c65ba1d8abccfb"
+API_KEY = "YOUR_API_KEY"
 
 headers = {"accept": "application/json",
            "x-apikey": API_KEY}
